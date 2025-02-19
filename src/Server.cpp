@@ -24,6 +24,7 @@ Server &Server::operator=(Server const &src){
 //---------------//Getters
 int Server::GetPort(){return this->port;}
 int Server::GetFd(){return this->server_fdsocket;}
+std::string Server::GetPassword(){return this->password;}
 Client *Server::GetClient(int fd){
 	for (size_t i = 0; i < this->clients.size(); i++){
 		if (this->clients[i].GetFd() == fd)
@@ -48,6 +49,77 @@ Channel *Server::GetChannel(std::string name)
 	return NULL;
 }
 //---------------//Getters
+
+//---------------//Setters
+void Server::SetFd(int fd){this->server_fdsocket = fd;}
+void Server::SetPort(int port){this->port = port;}
+void Server::SetPassword(std::string password){this->password = password;}
+void Server::AddClient(Client newClient){this->clients.push_back(newClient);}
+void Server::AddChannel(Channel newChannel){this->channels.push_back(newChannel);}
+void Server::AddFds(pollfd newFd){this->fds.push_back(newFd);}
+//---------------//Setters
+
+//---------------//Remove Methods
+void Server::RemoveClient(int fd){
+	for (size_t i = 0; i < this->clients.size(); i++){
+		if (this->clients[i].GetFd() == fd)
+			{this->clients.erase(this->clients.begin() + i); return;}
+	}
+}
+void Server::RemoveChannel(std::string name){
+	for (size_t i = 0; i < this->channels.size(); i++){
+		if (this->channels[i].GetName() == name)
+			{this->channels.erase(this->channels.begin() + i); return;}
+	}
+}
+void Server::RemoveFds(int fd){
+	for (size_t i = 0; i < this->fds.size(); i++){
+		if (this->fds[i].fd == fd)
+			{this->fds.erase(this->fds.begin() + i); return;}
+	}
+}
+void	Server::RmChannels(int fd){
+	for (size_t i = 0; i < this->channels.size(); i++){
+		int flag = 0;
+		if (channels[i].get_client(fd))
+			{channels[i].remove_client(fd); flag = 1;}
+		else if (channels[i].get_admin(fd))
+			{channels[i].remove_admin(fd); flag = 1;}
+		if (channels[i].GetClientsNumber() == 0)
+			{channels.erase(channels.begin() + i); i--; continue;}
+		if (flag){
+			std::string rpl = ":" + GetClient(fd)->GetNickName() + "!~" + GetClient(fd)->GetUserName() + "@localhost QUIT Quit\r\n";
+			channels[i].sendTo_all(rpl);
+		}
+	}
+}
+//---------------//Remove Methods
+
+//---------------//Send Methods
+void Server::senderror(int code, std::string clientname, int fd, std::string msg)
+{
+	std::stringstream ss;
+	ss << ":localhost " << code << " " << clientname << msg;
+	std::string resp = ss.str();
+	if(send(fd, resp.c_str(), resp.size(),0) == -1)
+		std::cerr << "send() faild" << std::endl;
+}
+
+void Server::senderror(int code, std::string clientname, std::string channelname, int fd, std::string msg)
+{
+	std::stringstream ss;
+	ss << ":localhost " << code << " " << clientname << " " << channelname << msg;
+	std::string resp = ss.str();
+	if(send(fd, resp.c_str(), resp.size(),0) == -1)
+		std::cerr << "send() faild" << std::endl;
+}
+
+void Server::_sendResponse(std::string response, int fd)
+{
+	if(send(fd, response.c_str(), response.size(), 0) == -1)
+		std::cerr << "Response send() faild" << std::endl;
+}
+//---------------//Send Methods
 
 //---------------//Close and Signal Methods
 bool Server::Signal = false;
