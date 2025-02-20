@@ -49,7 +49,6 @@ public:
 	Server(Server const &src);
 	Server &operator=(Server const &src);
 	//---------------//Getters
-	static bool isBotfull;
 	int GetFd();
 	int GetPort();
 	std::string GetPassword();
