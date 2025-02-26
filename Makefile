@@ -1,6 +1,6 @@
-NAME = irc
+NAME = ircserv
 
-SRCS =  $(wildcard src/*.cpp) main.cpp
+SRCS =  $(wildcard src/*.cpp) $(wildcard cmd/*.cpp) main.cpp
 
 OBJS = ${SRCS:.cpp=.o}
 
