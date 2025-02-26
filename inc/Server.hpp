@@ -100,7 +100,7 @@ public:
 	//---------------------------//PART CMD
 	void	PART(std::string cmd, int fd);
 	int		SplitCmdPart(std::string cmd, std::vector<std::string> &tmp, std::string &reason, int fd);
-	//---------------------------//CKIK CMD
+	//---------------------------//KICK CMD
 	void	KICK(std::string cmd, int fd);
 	std::string SplitCmdKick(std::string cmd, std::vector<std::string> &tmp, std::string &user, int fd);
 	//---------------------------//PRIVMSG CMD
