@@ -13,8 +13,8 @@ int main(int ac, char **av)
 	std::cout << "---- SERVER ----" << std::endl;
 	try
 	{
-		signal(SIGINT, Server::SignalHandler);
-		signal(SIGQUIT, Server::SignalHandler);
+		signal(SIGINT, Server::signalHandler);
+		signal(SIGQUIT, Server::signalHandler);
 		signal(SIGPIPE, SIG_IGN); // or MSG_NOSIGNAL flag in send() to ignore SIGPIPE on linux systems
 		if(!isPortValid(av[1]) || !*av[2] || std::strlen(av[2]) > 20)
 			{std::cout << "invalid Port number / Password!" << std::endl; return 1;}
@@ -22,7 +22,7 @@ int main(int ac, char **av)
 	}
 	catch(const std::exception& e)
 	{
-		ser.close_fds();
+		ser.closeFds();
 		std::cerr << e.what() << std::endl;
 	}
 	std::cout << "The Server Closed!" << std::endl;
