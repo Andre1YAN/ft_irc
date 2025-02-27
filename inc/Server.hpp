@@ -50,7 +50,7 @@ public:
 	Server &operator=(Server const &src);
 	//---------------//Getters
 	int GetFd();
-	int GetPort();
+	int getPort();
 	std::string GetPassword();
 	Client *GetClient(int fd);
 	Client *GetClientNick(std::string nickname);
