@@ -21,7 +21,7 @@ Server &Server::operator=(Server const &src){
 }
 
 //---------------//Getters
-int Server::GetPort(){return this->port;}
+int Server::getPort(){return this->port;}
 int Server::GetFd(){return this->server_fdsocket;}
 std::string Server::GetPassword(){return this->password;}
 Client *Server::GetClient(int fd){
@@ -80,15 +80,15 @@ void Server::RemoveFds(int fd){
 void	Server::RmChannels(int fd){
 	for (size_t i = 0; i < this->channels.size(); i++){
 		int flag = 0;
-		if (channels[i].get_client(fd))
-			{channels[i].remove_client(fd); flag = 1;}
-		else if (channels[i].get_admin(fd))
-			{channels[i].remove_admin(fd); flag = 1;}
+		if (channels[i].getClient(fd))
+			{channels[i].removeClient(fd); flag = 1;}
+		else if (channels[i].getAdmin(fd))
+			{channels[i].removeAdmin(fd); flag = 1;}
 		if (channels[i].GetClientsNumber() == 0)
 			{channels.erase(channels.begin() + i); i--; continue;}
 		if (flag){
 			std::string rpl = ":" + GetClient(fd)->GetNickName() + "!~" + GetClient(fd)->GetUserName() + "@localhost QUIT Quit\r\n";
-			channels[i].sendTo_all(rpl);
+			channels[i].sendToAll(rpl);
 		}
 	}
 }

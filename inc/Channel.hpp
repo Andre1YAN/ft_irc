@@ -36,9 +36,9 @@ public:
 	void SetPassword(std::string password);
 	void SetName(std::string name);
 	void SetTime(std::string time);
-	void set_topicRestriction(bool value);
+	void setTopicRestriction(bool value);
 	void setModeAtindex(size_t index, bool mode);
-	void set_createiontime();
+	void setCreateiontime();
 	//---------------//Getters
 	int GetInvitOnly();
 	int GetTopic();
@@ -52,22 +52,22 @@ public:
 	std::string GetPassword();
 	std::string GetName();
 	std::string GetTime();
-	std::string get_creationtime();
+	std::string getCreationTime();
 	std::string getModes();
-	std::string clientChannel_list();
-	Client *get_client(int fd);
-	Client *get_admin(int fd);
+	std::string clientChannelList();
+	Client *getClient(int fd);
+	Client *getAdmin(int fd);
 	Client *GetClientInChannel(std::string name);
 	//---------------//Methods
-	void add_client(Client newClient);
-	void add_admin(Client newClient);
-	void remove_client(int fd);
-	void remove_admin(int fd);
-	bool change_clientToAdmin(std::string& nick);
-	bool change_adminToClient(std::string& nick);
+	void addClient(Client newClient);
+	void addAdmin(Client newClient);
+	void removeClient(int fd);
+	void removeAdmin(int fd);
+	bool changeClientToAdmin(std::string& nick);
+	bool changeAdminToClient(std::string& nick);
 	//---------------//SendToAll
-	void sendTo_all(std::string rpl1);
-	void sendTo_all(std::string rpl1, int fd);
+	void sendToAll(std::string rpl1);
+	void sendToAllLeave(std::string rpl1, int fd);
 };
 
 #endif
