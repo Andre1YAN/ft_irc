@@ -23,27 +23,27 @@ public:
 	Client(Client const &src);
 	Client &operator=(Client const &src);
 	//---------------//Getters
-	int GetFd();
+	int getFd();
 	bool getRegistered();
-	bool GetInviteChannel(std::string &ChName);
-	std::string GetNickName();
-	bool 		GetLogedIn();
-	std::string GetUserName();
+	bool getInviteChannel(std::string &ChName);
+	std::string getNickName();
+	bool 		getLogedIn();
+	std::string getUserName();
 	std::string getIpAdd();
 	std::string getBuffer();
 	std::string getHostname();
 	//---------------//Setters
-	void SetFd(int fd);
-	void SetNickname(std::string& nickName);
+	void setFd(int fd);
+	void setNickname(std::string& nickName);
 	void setLogedin(bool value);
-	void SetUsername(std::string& username);
+	void setUsername(std::string& username);
 	void setBuffer(std::string recived);
 	void setRegistered(bool value);
 	void setIpAdd(std::string ipadd);
 	//---------------//Methods
 	void clearBuffer();
-	void AddChannelInvite(std::string &chname);
-	void RmChannelInvite(std::string &chname);
+	void addChannelInvite(std::string &chname);
+	void removeChannelInvite(std::string &chname);
 };
 
 #endif
