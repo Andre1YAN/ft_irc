@@ -71,7 +71,7 @@ public:
 	void removeChannels(int fd);
 	//---------------//Send Methods
 	void sendError(int code, std::string clientname, int fd, std::string msg);
-	void sendErrorToChannel(int code, std::string clientname, std::string channelname, int fd, std::string msg);
+	void sendErrorWithChannel(int code, std::string clientname, std::string channelname, int fd, std::string msg);
 	void 		_sendResponse(std::string response, int fd);
 	//---------------//Close and Signal Methods
 	static void signalHandler(int signum);

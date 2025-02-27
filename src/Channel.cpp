@@ -185,7 +185,7 @@ void Channel::sendToAll(std::string rpl1)
 			std::cerr << "send() faild" << std::endl;
 }
 // Send to all when leave a channel
-void Channel::sendToAllLeave(std::string rpl1, int fd)
+void Channel::sendToAllExceptMe(std::string rpl1, int fd)
 {
 	for(size_t i = 0; i < admins.size(); i++){
 		if(admins[i].getFd() != fd)

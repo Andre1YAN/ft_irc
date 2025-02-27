@@ -104,7 +104,7 @@ void Server::sendError(int code, std::string clientname, int fd, std::string msg
 		std::cerr << "send() faild" << std::endl;
 }
 
-void Server::sendErrorToChannel(int code, std::string clientname, std::string channelname, int fd, std::string msg)
+void Server::sendErrorWithChannel(int code, std::string clientname, std::string channelname, int fd, std::string msg)
 {
 	std::stringstream ss;
 	ss << ":localhost " << code << " " << clientname << " " << channelname << msg;
@@ -293,14 +293,15 @@ void Server::parseExecCmd(std::string &cmd, int fd)
 			set_nickname(cmd,fd);
 		else if(splited_cmd.size() && (splited_cmd[0] == "USER" || splited_cmd[0] == "user"))
 			set_username(cmd, fd);
-		//else if (splited_cmd.size() && (splited_cmd[0] == "QUIT" || splited_cmd[0] == "quit"))
-		//	QUIT(cmd,fd);
-		//else if(notregistered(fd))
-		//{
-		//	if (splited_cmd.size() && (splited_cmd[0] == "KICK" || splited_cmd[0] == "kick"))
-		//		KICK(cmd, fd);
-		//	else if (splited_cmd.size() && (splited_cmd[0] == "JOIN" || splited_cmd[0] == "join"))
-		//		JOIN(cmd, fd);
+		else if (splited_cmd.size() && (splited_cmd[0] == "QUIT" || splited_cmd[0] == "quit"))
+			QUIT(cmd,fd);
+		else if(notRegistered(fd))
+		{
+			if (splited_cmd.size() && (splited_cmd[0] == "KICK" || splited_cmd[0] == "kick"))
+				//KICK(cmd, fd);
+				return ;
+			else if (splited_cmd.size() && (splited_cmd[0] == "JOIN" || splited_cmd[0] == "join"))
+				JOIN(cmd, fd);
 	//		else if (splited_cmd.size() && (splited_cmd[0] == "TOPIC" || splited_cmd[0] == "topic"))
 	//			Topic(cmd, fd);
 			//else if (splited_cmd.size() && (splited_cmd[0] == "MODE" || splited_cmd[0] == "mode"))
@@ -313,7 +314,7 @@ void Server::parseExecCmd(std::string &cmd, int fd)
 		//		Invite(cmd,fd);
 		//	else if (splited_cmd.size())
 		//		_sendResponse(ERR_CMDNOTFOUND(GetClient(fd)->GetNickName(),splited_cmd[0]),fd);
-		//}
+		}
 		else if (!notRegistered(fd))
 			_sendResponse(ERR_NOTREGISTERED(std::string("*")),fd);
 }

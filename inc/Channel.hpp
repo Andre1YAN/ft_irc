@@ -67,7 +67,7 @@ public:
 	bool changeAdminToClient(std::string& nick);
 	//---------------//SendToAll
 	void sendToAll(std::string rpl1);
-	void sendToAllLeave(std::string rpl1, int fd);
+	void sendToAllExceptMe(std::string rpl1, int fd);
 };
 
 #endif
