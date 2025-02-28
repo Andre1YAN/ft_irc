@@ -16,7 +16,7 @@ void FindPRReason(std::string cmd, std::string tofind, std::string &str)
 	}
 	if (i < cmd.size()) str = cmd.substr(i);
 	    i = 0;
-	for (; i < str.size() && str[i] == ' '; i++);
+	for (; i < str.size() && str[i] == ' '; i++)
 	    str = str.substr(i);
 }
 

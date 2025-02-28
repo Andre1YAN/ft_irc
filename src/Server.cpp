@@ -306,14 +306,14 @@ void Server::parseExecCmd(std::string &cmd, int fd)
 	//			Topic(cmd, fd);
 			//else if (splited_cmd.size() && (splited_cmd[0] == "MODE" || splited_cmd[0] == "mode"))
 	//			mode_command(cmd, fd);
-		//	else if (splited_cmd.size() && (splited_cmd[0] == "PART" || splited_cmd[0] == "part"))
-		//		PART(cmd, fd);
+			else if (splited_cmd.size() && (splited_cmd[0] == "PART" || splited_cmd[0] == "part"))
+				PART(cmd, fd);
 		//	else if (splited_cmd.size() && (splited_cmd[0] == "PRIVMSG" || splited_cmd[0] == "privmsg"))
 		//		PRIVMSG(cmd, fd);
-		//	else if (splited_cmd.size() && (splited_cmd[0] == "INVITE" || splited_cmd[0] == "invite"))
-		//		Invite(cmd,fd);
-		//	else if (splited_cmd.size())
-		//		_sendResponse(ERR_CMDNOTFOUND(GetClient(fd)->GetNickName(),splited_cmd[0]),fd);
+			else if (splited_cmd.size() && (splited_cmd[0] == "INVITE" || splited_cmd[0] == "invite"))
+				Invite(cmd,fd);
+			else if (splited_cmd.size())
+				_sendResponse(ERR_CMDNOTFOUND(GetClient(fd)->GetNickName(),splited_cmd[0]),fd);
 		}
 		else if (!notRegistered(fd))
 			_sendResponse(ERR_NOTREGISTERED(std::string("*")),fd);
