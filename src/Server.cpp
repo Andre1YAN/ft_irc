@@ -311,9 +311,9 @@ void Server::parseExecCmd(std::string &cmd, int fd)
 		//	else if (splited_cmd.size() && (splited_cmd[0] == "PRIVMSG" || splited_cmd[0] == "privmsg"))
 		//		PRIVMSG(cmd, fd);
 			else if (splited_cmd.size() && (splited_cmd[0] == "INVITE" || splited_cmd[0] == "invite"))
-				Invite(cmd,fd);
-			else if (splited_cmd.size())
-				_sendResponse(ERR_CMDNOTFOUND(GetClient(fd)->GetNickName(),splited_cmd[0]),fd);
+				INVITE(cmd,fd);
+		//	else if (splited_cmd.size())
+		//		_sendResponse(ERR_CMDNOTFOUND(etClient(fd)->GetNickName(),splited_cmd[0]),fd);
 		}
 		else if (!notRegistered(fd))
 			_sendResponse(ERR_NOTREGISTERED(std::string("*")),fd);

@@ -55,7 +55,7 @@ void Server::set_nickname(std::string cmd, int fd)
 {
         std::string inuse;
         cmd = cmd.substr(4);
-        size_t pos = cmd.find_first_not_of("\t\r");
+        size_t pos = cmd.find_first_not_of("\t\r ");
         if (pos < cmd.size())
         {
                 cmd = cmd.substr(pos);
