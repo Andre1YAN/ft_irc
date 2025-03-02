@@ -49,8 +49,12 @@ int Server::splitCmdPart(std::string cmd, std::vector<std::string> &tmp, std::st
     tmp.clear();
 	for (size_t i = 0; i < str.size(); i++){//split the first string by ',' to get the channels names
 		if (str[i] == ',')
-			{tmp.push_back(str1); str1.clear();}
-		else str1 += str[i];
+		{	
+			tmp.push_back(str1); 
+			str1.clear();
+		}
+		else 
+			str1 += str[i];
 	}
 	tmp.push_back(str1);
 	for (size_t i = 0; i < tmp.size(); i++)//erase the empty strings
